@@ -56,7 +56,7 @@ export const initialComplaints: Complaint[] = [
     location: "Portal Akademik / Fakultas Ilmu Komputer",
     status: "Diajukan",
     createdAt: "2026-06-22T15:45:00Z",
-    reporterName: "Rian Hidayat",
+    reporterName: "Edisyah Putra Waruwu",
     priority: "Tinggi",
     comments: []
   },

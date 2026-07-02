@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { 
   BookOpen, Clipboard, Layers, Calendar, Users, DollarSign, 
   Trello, ShieldAlert, CheckSquare, Sparkles, FileDown, 
@@ -273,7 +273,7 @@ export default function PMHub({ onAddLog }: PMHubProps) {
                     ${Array.from({ length: 8 }, (_, i) => {
                       const week = i + 1;
                       const active = week >= t.startWeek && week <= t.endWeek;
-                      return `<td style="border: 1px solid #ddd; padding: 6px; text-align: center; background-color: ${active ? '#ccf2f4' : 'transparent'};">${active ? '■' : ''}</td>`;
+                      return `<td style="border: 1px solid #ddd; padding: 6px; text-align: center; background-color: ${active ? '#ccf2f4' : 'transparent'};">${active ? 'Γûá' : ''}</td>`;
                     }).join("")}
                   </tr>
                 `).join("")}

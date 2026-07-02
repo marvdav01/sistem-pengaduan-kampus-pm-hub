@@ -146,7 +146,7 @@ export default function PortalDemo({ onAddLog }: PortalDemoProps) {
   const [formCategory, setFormCategory] = useState<Complaint["category"]>("Fasilitas");
   const [formDescription, setFormDescription] = useState("");
   const [formLocation, setFormLocation] = useState("");
-  const [formImage, setFormImage] = useState("");
+  const [formImage, setFormImage] = useState<File | null>(null);
   const [formPriority, setFormPriority] = useState<"Tinggi" | "Sedang" | "Rendah">("Sedang");
 
   // Comment state
@@ -197,6 +197,9 @@ export default function PortalDemo({ onAddLog }: PortalDemoProps) {
     formData.append("location", formLocation);
     formData.append("categoryId", String(catId));
     formData.append("priority", formPriority.toUpperCase());
+    if (formImage) {
+      formData.append("attachment", formImage);
+    }
 
     try {
       const token = localStorage.getItem("sipelak_token");
@@ -211,7 +214,7 @@ export default function PortalDemo({ onAddLog }: PortalDemoProps) {
         setFormTitle("");
         setFormDescription("");
         setFormLocation("");
-        setFormImage("");
+        setFormImage(null);
         setFormPriority("Sedang");
         setActiveTab("daftar");
         fetchComplaints();
@@ -515,7 +518,7 @@ export default function PortalDemo({ onAddLog }: PortalDemoProps) {
 
   return (
     <div className="space-y-6">
-      {/* Simulation Role Selector */}
+      {/* Active Role Session */}
       <div className="bg-slate-900 text-white rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between shadow-xl border border-slate-800 space-y-4 md:space-y-0">
         <div className="flex items-center space-x-3">
           <div className="bg-emerald-500 text-slate-900 rounded-xl p-2 font-mono font-bold text-xs uppercase tracking-wider">
@@ -866,13 +869,21 @@ export default function PortalDemo({ onAddLog }: PortalDemoProps) {
                   />
                 </div>
 
-                {/* Simulated Image Upload */}
+                {/* Real Image Upload */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-700">Foto Bukti Fisik (Simulasi Unggah)</label>
-                  <div className="border border-dashed border-slate-200 hover:border-teal-300 rounded-xl p-6 text-center cursor-pointer hover:bg-teal-50/10 transition-all flex flex-col items-center">
+                  <label className="text-xs font-semibold text-slate-700">Foto Bukti Fisik</label>
+                  <div className="border border-dashed border-slate-200 hover:border-teal-300 rounded-xl p-6 text-center cursor-pointer hover:bg-teal-50/10 transition-all flex flex-col items-center relative">
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={(e) => setFormImage(e.target.files ? e.target.files[0] : null)}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
                     <ImageIcon className="w-8 h-8 text-slate-400 mb-2" />
-                    <p className="text-xs font-semibold text-slate-700">Tarik berkas atau Klik untuk mengunggah gambar</p>
-                    <p className="text-[10px] text-slate-400 mt-1">Sistem akan secara otomatis menyimulasikan gambar asli berdasarkan kategori keluhan Anda.</p>
+                    <p className="text-xs font-semibold text-slate-700">
+                      {formImage ? formImage.name : "Tarik berkas atau Klik untuk mengunggah gambar"}
+                    </p>
+                    <p className="text-[10px] text-slate-400 mt-1">Unggah foto sebagai bukti pendukung untuk laporan Anda.</p>
                   </div>
                 </div>
 
